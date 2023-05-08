@@ -1,4 +1,5 @@
 from node import Node
+import unittest
 
 
 class Tree:
@@ -9,11 +10,28 @@ class Tree:
         self.root = None
 
     def getRoot(self):
-        """ Method for get root of the tree """
+        """
+        Method for get root of the tree
+        
+        Args:
+            None
+
+        Returns:
+            Node: root of the tree
+        """
         return self.root
 
     def add(self, data):
-        """ Method for add data to the tree """
+        """
+        Method for add data to the tree
+
+        Args:
+            data (int): data to add
+
+        Returns:
+            None
+
+        """
         if self.root is None:
             self.root = Node(data)
         else:
@@ -54,6 +72,18 @@ class Tree:
             return None
 
     def _find(self, data, node):
+        """
+        Method for find data in the tree
+
+        Args:
+            data (int): data to find
+            node (Node): node to find
+
+        Returns:
+            Node: node with data
+
+        """
+
         if data == node.data:
             return node
         elif (data < node.data and node.left is not None):
@@ -62,27 +92,88 @@ class Tree:
             return self._find(data, node.right)
 
     def deleteTree(self):
-        # TODO 1
+        """
+        Deletes the entire tree
+
+        Args:
+            None
+
+        Returns:
+            None
+        """
+
         self.root = None
 
     def printTree(self):
-        # TODO 1
+        """
+        Method for print tree
+        
+        Args:
+            None
+
+        Returns:
+            None
+        """
         if self.root is not None:
             self._printInorderTree(self.root)
 
     def _printInorderTree(self, node):
-        # TODO 1
+        """
+        Method for print tree
+
+        Args:
+            node (Node): node to print
+
+        Returns:
+            None
+        """
         if node is not None:
             self._printInorderTree(node.left)
             print(str(node.data) + ' ')
             self._printInorderTree(node.right)
 
     def _printPreorderTree(self, node):
-        # TODO 2
-        pass
+        """
+        Method for print tree pre-order
+
+        Args:
+            node (Node): node to start
+
+        Returns:
+            None
+        """
+
+        if node is not None:
+            print(str(node.data) + ' ')
+            self._printInorderTree(node.left)
+            self._printInorderTree(node.right)
 
     def _printPostorderTree(self, node):
-        # TODO 2
-        pass
+        """
+        Method for print tree post-order
+
+        Args:
+            node (Node): node to start
+
+        Returns:
+            None
+        """
+        if node is not None:
+            self._printInorderTree(node.left)
+            self._printInorderTree(node.right)
+            print(str(node.data) + ' ')
 
 
+# create unit test for the find method 2 tests
+class TestTree(unittest.TestCase):
+    def test_find(self):
+        tree = Tree()
+        tree.add(5)
+
+        self.assertEqual(tree.find(5).data, 5)
+
+    def test_find2(self):
+        tree = Tree()
+        tree.add(5)
+
+        self.assertEqual(tree.find(6), None)
